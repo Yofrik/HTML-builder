@@ -11,12 +11,19 @@ function writeToFile(filePath) {
     output: process.stdout
   });
 
-  rl.question('Введите текст для записи в файл: ', function(input) {
-    rl.close();
+  const onExit = () => {
+    console.log('\n Хорошего дня :-)');
+    process.exit(0);
+  }
+  rl.on('SIGINT', onExit);
 
+  rl.question('Введите текст для записи в файл: ', function(input) {
+    rl.off('SIGINT', onExit);
+    rl.close();
+    
     const data = input.trim();
     if (data == 'exit'){
-      return
+      onExit()
     }
     else{
       fs.writeFile(filePath, data, function(err) {
