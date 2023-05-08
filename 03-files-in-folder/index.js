@@ -12,7 +12,6 @@ function readToDirect(directPath) {
             files.forEach((file) => {
             if (file.isFile()) {
                 const filePath = path.join(directPath, file.name);
-                const fileInfo = path.parse(filePath);
                 fs.stat(filePath, (err, stats) =>{
                     if (err) {
                         console.error('Ошибка чтения параметров файла:', err);
